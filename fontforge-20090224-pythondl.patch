@@ -1,0 +1,41 @@
+diff -Nur fontforge-20090224.orig/configure fontforge-20090224/configure
+--- fontforge-20090224.orig/configure	2008-12-24 14:04:18.000000000 -0700
++++ fontforge-20090224/configure	2009-04-01 22:56:07.000000000 -0600
+@@ -26670,6 +26670,7 @@
+   else
+     PYLIBS=""
+   fi
++  PYDEFINES="$PYDEFINES, ('SOLIBDIR','\"$libdir/\"')"
+   PY=pyhook/setup.py
+ fi
+ 
+diff -Nur fontforge-20090224.orig/pyhook/loadfontforge.h fontforge-20090224/pyhook/loadfontforge.h
+--- fontforge-20090224.orig/pyhook/loadfontforge.h	2007-12-23 19:28:35.000000000 -0700
++++ fontforge-20090224/pyhook/loadfontforge.h	2009-04-01 22:49:08.000000000 -0600
+@@ -11,7 +11,7 @@
+ 
+     if ( (lib = dlopen("libgunicode" SO_EXT,RTLD_LAZY))==NULL ) {
+ #ifdef PREFIX
+-	lib = dlopen( PREFIX "/lib/" "libgunicode" SO_EXT,RTLD_LAZY);
++	lib = dlopen( SOLIBDIR "libgunicode.so.3" ,RTLD_LAZY);
+ #endif
+     }
+     if ( lib==NULL ) {
+@@ -21,7 +21,7 @@
+ 
+     if ( (lib = dlopen("libgutils" SO_EXT,RTLD_LAZY))==NULL ) {
+ #ifdef PREFIX
+-	lib = dlopen( PREFIX "/lib/" "libgutils" SO_EXT,RTLD_LAZY);
++	lib = dlopen( SOLIBDIR "libgutils.so.1" ,RTLD_LAZY);
+ #endif
+     }
+     if ( lib==NULL ) {
+@@ -31,7 +31,7 @@
+ 
+     if ( (lib = dlopen("libfontforge" SO_EXT,RTLD_LAZY))==NULL ) {
+ #ifdef PREFIX
+-	lib = dlopen( PREFIX "/lib/" "libfontforge" SO_EXT,RTLD_LAZY);
++	lib = dlopen( SOLIBDIR "libfontforge.so.1" SO_EXT,RTLD_LAZY);
+ #endif
+     }
+     if ( lib==NULL ) {
